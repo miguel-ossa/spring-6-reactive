@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Beer {
     @Id
     private Integer id;
-    private String beerMame;
+    private String beerName;
     private String beerStyle;
     private String upc;
     private Integer quantityOnHand;
