@@ -25,6 +25,13 @@ public class BeerController {
                 .map(savedDTO -> ResponseEntity.ok().build());
     }
 
+    @PatchMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> patchExistingBeer(@PathVariable("beerId") Integer beerId,
+                                                  @RequestBody BeerDTO beerDTO) {
+        return beerService.patchBeer(beerId, beerDTO)
+                .map(savedDTO -> ResponseEntity.ok().build());
+    }
+
     @PostMapping(BEER_PATH)
     Mono<ResponseEntity<Void>> createNewBeer(@RequestBody BeerDTO beerDTO) {
         return beerService.saveNewBeer(beerDTO)
