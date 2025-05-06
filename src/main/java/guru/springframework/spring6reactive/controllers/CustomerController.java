@@ -21,14 +21,14 @@ public class CustomerController {
     @DeleteMapping(CUSTOMER_PATH_ID)
     Mono<ResponseEntity<Void>> deleteById(@PathVariable("customerId") Integer customerId) {
         return customerService.deleteCustomerById(customerId)
-                .map(response -> ResponseEntity.noContent().build());
+                .thenReturn(ResponseEntity.noContent().build());
     }
 
     @PutMapping(CUSTOMER_PATH_ID)
     Mono<ResponseEntity<Void>> updateExistingCustomer(@PathVariable("customerId") Integer customerId, 
                                                       @Validated @RequestBody CustomerDTO customerDTO) {
         return customerService.updateCustomer(customerId, customerDTO)
-                .map(savedDTO -> ResponseEntity.ok().build());
+                .map(savedDTO -> ResponseEntity.noContent().build());
     }
 
     @PatchMapping(CUSTOMER_PATH_ID)
