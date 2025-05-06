@@ -7,27 +7,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BeerDTO {
+public class CustomerDTO {
     private Integer id;
 
     @NotBlank
     @Size(min = 3, max = 255)
-    private String beerName;
+    private String customerName;
 
-    @Size(min = 1, max = 255)
-    private String beerStyle;
-
-    @Size(max = 25)
-    private String upc;
-    private Integer quantityOnHand;
-    private BigDecimal price;
+    @Size(min = 3, max = 255)
+    private String email;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
 }

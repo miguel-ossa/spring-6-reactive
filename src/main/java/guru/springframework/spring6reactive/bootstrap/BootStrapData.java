@@ -1,7 +1,9 @@
 package guru.springframework.spring6reactive.bootstrap;
 
 import guru.springframework.spring6reactive.domain.Beer;
+import guru.springframework.spring6reactive.domain.Customer;
 import guru.springframework.spring6reactive.repository.BeerRepository;
+import guru.springframework.spring6reactive.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,12 +19,38 @@ import java.time.LocalDateTime;
 public class BootStrapData implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public void run(String... args) throws Exception {
         loadBeerData();
+        loadCustomerData();
 
-        beerRepository.count().subscribe(count -> System.out.println("Count is: " + count));
+        beerRepository.count().subscribe(count -> System.out.println("Beer Count is: " + count));
+        customerRepository.count().subscribe(count -> System.out.println("Customer Count is: " + count));
+    }
+
+    private void loadCustomerData() {
+        customerRepository.count().subscribe(count -> {
+            if (count == 0) {
+                Customer customer1 = Customer.builder()
+                        .customerName("Manolo")
+                        .email("manolo@gmail.com")
+                        .createdDate(LocalDateTime.now())
+                        .lastModifiedDate(LocalDateTime.now())
+                        .build();
+
+                Customer customer2 = Customer.builder()
+                        .customerName("Pepito")
+                        .email("pepito@gmail.com")
+                        .createdDate(LocalDateTime.now())
+                        .lastModifiedDate(LocalDateTime.now())
+                        .build();
+
+                customerRepository.save(customer1).subscribe();
+                customerRepository.save(customer2).subscribe();
+            }
+        });
     }
 
     private void loadBeerData() {
